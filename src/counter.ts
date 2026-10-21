@@ -47,12 +47,15 @@ function renderStats(snapshot: ShieldSnapshot) {
     `Shield charge: ${snapshot.charge} · Missing charge: ${snapshot.missingCharge}`;
 }
 
+const shieldEvents = new EventTarget();
+shieldEvents.addEventListener("change", () => drawMeter(snapshotShield(count)));
+
 function setCount(next: number) {
   const bounded = Math.max(0, Math.min(10, next));
   if (bounded === count) return;
   count = bounded;
   const snapshot = snapshotShield(count);
-  drawMeter(snapshot);
+  shieldEvents.dispatchEvent(new Event("change"));
   if (panel) updateStats(snapshot);
 }
 
