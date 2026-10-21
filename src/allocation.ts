@@ -7,17 +7,37 @@ const readout = document.querySelector<HTMLParagraphElement>(
 )!;
 let supplyProducers = 2;
 
-function renderAllocation() {
-  const production = supplyProducers * 3;
-  const consumption = 6;
-  const balance = production - consumption;
-  drawAllocation(production, consumption);
-  renderShiftReadout(production, consumption, balance);
+interface ShiftResults {
+  supplyProducers: number;
+  crewSize: number;
+  production: number;
+  consumption: number;
+  balance: number;
 }
 
-function drawAllocation(production: number, consumption: number) {
+function calculateShift(supplyProducers: number): ShiftResults {
+  const crewSize = 6;
+  const production = supplyProducers * 3;
+  const consumption = crewSize;
+  return {
+    supplyProducers,
+    crewSize,
+    production,
+    consumption,
+    balance: production - consumption,
+  };
+}
+
+function renderAllocation() {
+  const shift = calculateShift(supplyProducers);
+  drawAllocation(shift);
+  renderShiftReadout(shift);
+}
+
+function drawAllocation(shift: ShiftResults) {
+  const { supplyProducers, crewSize, production, consumption } = shift;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < crewSize; i++) {
     ctx.fillStyle = i < supplyProducers ? "#27766b" : "#c9d2c9";
     ctx.fillRect(18 + i * 45, 16, 36, 36);
     ctx.fillStyle = i < supplyProducers ? "#ffffff" : "#233e43";
@@ -26,7 +46,7 @@ function drawAllocation(production: number, consumption: number) {
   }
   ctx.fillStyle = "#233e43";
   ctx.font = "14px system-ui";
-  ctx.fillText(`Producers: ${supplyProducers} / 6`, 18, 76);
+  ctx.fillText(`Producers: ${supplyProducers} / ${crewSize}`, 18, 76);
   ctx.fillText(`Production: ${production}`, 18, 102);
   ctx.fillStyle = "#27766b";
   ctx.fillRect(18, 110, production * 14, 20);
@@ -36,13 +56,10 @@ function drawAllocation(production: number, consumption: number) {
   ctx.fillRect(18, 162, consumption * 14, 20);
 }
 
-function renderShiftReadout(
-  production: number,
-  consumption: number,
-  balance: number,
-) {
+function renderShiftReadout(shift: ShiftResults) {
+  const { supplyProducers, crewSize, production, consumption, balance } = shift;
   readout.textContent =
-    `Assigned: ${supplyProducers}/6 · Production: ${production} · Consumption: ${consumption} · Balance: ${
+    `Assigned: ${supplyProducers}/${crewSize} · Production: ${production} · Consumption: ${consumption} · Balance: ${
       balance > 0 ? "+" : ""
     }${balance}`;
 }
