@@ -34,6 +34,12 @@ function renderAllocation() {
   renderShiftReadout(shift);
 }
 
+interface SupplyRow {
+  label: string;
+  amount: number;
+  color: string;
+}
+
 function drawAllocation(shift: ShiftResults) {
   const { supplyProducers, crewSize, production, consumption } = shift;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -47,13 +53,17 @@ function drawAllocation(shift: ShiftResults) {
   ctx.fillStyle = "#233e43";
   ctx.font = "14px system-ui";
   ctx.fillText(`Producers: ${supplyProducers} / ${crewSize}`, 18, 76);
-  ctx.fillText(`Production: ${production}`, 18, 102);
-  ctx.fillStyle = "#27766b";
-  ctx.fillRect(18, 110, production * 14, 20);
-  ctx.fillStyle = "#233e43";
-  ctx.fillText(`Consumption: ${consumption}`, 18, 154);
-  ctx.fillStyle = "#a44d23";
-  ctx.fillRect(18, 162, consumption * 14, 20);
+  const rows: SupplyRow[] = [
+    { label: "Production", amount: production, color: "#27766b" },
+    { label: "Consumption", amount: consumption, color: "#a44d23" },
+  ];
+  rows.forEach((row, index) => {
+    const labelY = 102 + index * 52;
+    ctx.fillStyle = "#233e43";
+    ctx.fillText(`${row.label}: ${row.amount}`, 18, labelY);
+    ctx.fillStyle = row.color;
+    ctx.fillRect(18, labelY + 8, row.amount * 14, 20);
+  });
 }
 
 function renderShiftReadout(shift: ShiftResults) {
