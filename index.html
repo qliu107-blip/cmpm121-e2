@@ -14,9 +14,17 @@
     <main>
       <section aria-labelledby="allocation-title">
         <h2 id="allocation-title">A · Kestrel is not a colony</h2>
-        <p>Reclaim the habitat · Six crew need 6 supplies, whatever their role. Each supply producer makes 3.</p>
-        <canvas id="allocation-canvas" width="300" height="200" role="img"
-          aria-label="Crew assignment and supply production versus consumption"></canvas>
+        <p>
+          Reclaim the habitat · Six crew need 6 supplies, whatever their role.
+          Each supply producer makes 3.
+        </p>
+        <canvas
+          id="allocation-canvas"
+          width="300"
+          height="200"
+          role="img"
+          aria-label="Crew assignment and supply production versus consumption"
+        ></canvas>
         <p id="allocation-readout" aria-live="polite"></p>
         <div class="controls">
           <button id="allocation-less">− Producer</button>
@@ -26,9 +34,17 @@
       </section>
       <section aria-labelledby="rover-title">
         <h2 id="rover-title">B · Beyond the ridge</h2>
-        <p>Alien-moon exploration · Forward one cell or turn right. Map edges stop movement.</p>
-        <canvas id="rover-canvas" width="300" height="300" role="img"
-          aria-label="Rover on a five by five grid"></canvas>
+        <p>
+          Alien-moon exploration · Forward one cell or turn right. Map edges
+          stop movement.
+        </p>
+        <canvas
+          id="rover-canvas"
+          width="300"
+          height="300"
+          role="img"
+          aria-label="Rover on a five by five grid"
+        ></canvas>
         <p id="rover-readout" aria-live="polite"></p>
         <div class="controls">
           <button id="rover-forward">Forward</button>
@@ -45,9 +61,16 @@
       </section>
       <section aria-labelledby="counter-title">
         <h2 id="counter-title">C · Salvage pilot</h2>
-        <p>Action roguelite · Shield charge: 0–10. Optional combat inspector.</p>
-        <canvas id="counter-canvas" width="300" height="120" role="img"
-          aria-label="Shield charge meter"></canvas>
+        <p>
+          Action roguelite · Shield charge: 0–10. Optional combat inspector.
+        </p>
+        <canvas
+          id="counter-canvas"
+          width="300"
+          height="120"
+          role="img"
+          aria-label="Shield charge meter"
+        ></canvas>
         <p id="counter-readout" aria-live="polite"></p>
         <div class="controls">
           <button id="counter-less">Hit (−1)</button>
@@ -59,8 +82,9 @@
           <button id="counter-close">Close inspector</button>
         </div>
         <div id="counter-panel-host"></div>
-        <p id="counter-diagnostic"
-          aria-live="polite">Inspector deliveries: 0</p>
+        <p id="counter-diagnostic" aria-live="polite">
+          Inspector deliveries: 0
+        </p>
       </section>
     </main>
     <script type="module" src="/src/allocation.ts"></script>
